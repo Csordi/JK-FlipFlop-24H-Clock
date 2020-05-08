@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name fys-10012auhr)(type Legacy)(uri ${KIPRJMOD}/fys-10012auhr.lib)(options "")(descr ""))
+  (lib (name JK-FlipFlop-24H-Clock_custom_components)(type Legacy)(uri ${KIPRJMOD}/JK-FlipFlop-24H-Clock_custom_components.lib)(options "")(descr ""))
+)
