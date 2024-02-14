@@ -1,0 +1,119 @@
+Section     Base   Top    High   Length
+----------- ------ ------ ------ -------
+.libs       040045 040045             0h
+.init       040045 04006B            26h
+.fini       04006B 0400F3            88h
+.init.args  0400F3 0400F3             0h
+.init.bss   0400F3 0400FF             Ch
+.text       0400FF 04275A          265Bh
+.data       04275A 04276F            15h
+.rodata     04276F 042970           201h
+.init_array 000000 000000             0h
+.ctors      000000 000000             0h
+.dtors      000000 000000             0h
+.fini_array 000000 000000             0h
+.bss        080000 080006 09FFFF      6h
+.header     040000 040045            45h
+
+Label                    Value
+----------------------   ------
+___low_bss             = 080000
+___len_bss             = 000006
+___heaptop             = 09FFFF
+___heapbot             = 080006
+___init_array_count    = 000000
+___ctors_count         = 000000
+___dtors_count         = 000000
+___fini_array_count    = 000000
+__stack                = 0AFFFF
+__fcmp                 = 0400FF
+__setflag              = 04011C
+__bshru                = 04012B
+__frameset             = 040135
+__frameset0            = 040143
+__iand                 = 04014E
+__imulu                = 040167
+__indcallhl            = 040197
+__ineg                 = 040198
+__ior                  = 0401A1
+__ishl                 = 0401BA
+__ishru                = 0401E0
+__ixor                 = 040221
+__ladd                 = 04023A
+__land                 = 040240
+__lcmps                = 04025B
+__lcmpu                = 040268
+__lcmpzero             = 040270
+__lladd                = 040278
+__lland                = 04029C
+__llcmpu               = 0402D9
+__llcmpzero            = 040303
+__llctlz               = 040318
+__lldivs               = 040330
+__lldivu               = 040380
+__lldvrmu              = 040394
+__lldvrmu.hijack       = 04039B
+__llmulu               = 0403F2
+__llneg                = 040447
+__llshl                = 040460
+__llshrs.hijack_llshru = 04048E
+__llshrs.finish        = 0404AD
+__llshru               = 0404B1
+__llsub                = 0404CB
+__lmulu                = 0404ED
+__lshl                 = 040549
+__lshrs.hijack_lshru   = 040562
+__lshru                = 040571
+__smulu                = 040581
+_delay                 = 040594
+___sleep_common.3      = 0405C0
+__stdio_init           = 0405D9
+_stdin                 = 04275A
+_stdout                = 04275F
+_stderr                = 042764
+_fputc                 = 04062B
+_fput_char             = 0406BB
+_free                  = 0406E2
+__alloc_base           = 080000
+_npf_vpprintf          = 04079F
+JTI0_0                 = 04276F
+JTI0_1                 = 04278D
+JTI0_2                 = 0427D2
+JTI0_3                 = 0427F3
+JTI0_4                 = 04280B
+JTI0_5                 = 042823
+_npf_utoa_rev          = 041F09
+_printf                = 041FD1
+_vprintf               = 041FF0
+_npf_putc_std          = 042010
+_.str                  = 04283B
+_.str.1                = 04283F
+_.str.2                = 042843
+_clock                 = 042020
+_outchar               = 042024
+_putchar               = 04202B
+__sbrkbase             = 042769
+_mos_fputc             = 0422FD
+_mos_i2c_write         = 04249C
+_mos_i2c_read          = 0424B7
+_mos_i2c_open          = 042475
+_getsysvar_time        = 0420A7
+__start                = 040045
+skip._abort            = 0400A5
+_exit.sp               = 0400A6
+_clear_bss             = 0400F3
+exit_functions         = 04276C
+_main                  = 0424D2
+_sensor_init           = 042584
+_read_sensor           = 0425FE
+_.str                  = 042847
+_.str.1                = 04285F
+_.str.2                = 042872
+_.str.3                = 04287F
+_.str.4                = 042898
+_.str.5                = 0428AD
+_.str.6                = 0428CB
+_.str.7                = 0428EC
+_.str.8                = 04290D
+_.str.9                = 04292E
+_.str.10               = 04294F

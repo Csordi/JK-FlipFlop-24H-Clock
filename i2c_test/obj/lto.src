@@ -1,0 +1,372 @@
+	section	.text,"ax",@progbits
+	assume	adl = 1
+	section	.text,"ax",@progbits
+	public	_main
+_main:
+	ld	hl, -16
+	call	__frameset
+	ld	hl, _.str
+	ld.sis	de, 0
+	ld	(ix - 13), de
+	lea	de, ix - 10
+	ld	(ix - 16), de
+	ld	(ix - 10), 96
+	push	hl
+	call	_printf
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_mos_i2c_open
+	pop	hl
+	ld	hl, (ix - 16)
+	push	hl
+	call	_sensor_init
+	pop	hl
+	ld	hl, _.str.1
+	push	hl
+	call	_printf
+	pop	hl
+BB0_1:
+	ld	hl, (ix - 16)
+	push	hl
+	call	_read_sensor
+	pop	hl
+	or	a, a
+	jr	z, BB0_3
+	or	a, a
+	sbc	hl, hl
+	ld	de, (ix - 13)
+	ld	l, e
+	ld	h, d
+	push	hl
+	ld	hl, _.str.2
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	bc, 0
+	ld	c, (ix - 9)
+	ld	hl, (ix - 8)
+	ld	de, 0
+	ld	e, l
+	ld	d, h
+	push	de
+	push	bc
+	ld	hl, _.str.3
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 6)
+	ld	a, (ix - 3)
+	ld	de, (ix - 2)
+	ld	bc, 0
+	ld	c, e
+	ld	b, d
+	push	bc
+	ld	e, a
+	push	de
+	push	hl
+	ld	hl, _.str.4
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+BB0_3:
+	ld	hl, 50
+	push	hl
+	call	_delay
+	pop	hl
+	ld	hl, (ix - 13)
+	inc.sis	hl
+	ld	(ix - 13), hl
+	jr	BB0_1
+	section	.text,"ax",@progbits
+
+	section	.text,"ax",@progbits
+	public	_sensor_init
+_sensor_init:
+	ld	hl, -9
+	call	__frameset
+	ld	hl, (ix + 6)
+	lea	de, ix - 6
+	ld	(ix - 9), de
+	ld	(ix - 6), 38
+	ld	(ix - 5), 56
+	ld	(ix - 4), 19
+	ld	(ix - 3), 7
+	ld	(ix - 2), 38
+	ld	(ix - 1), 57
+	ld	a, (hl)
+	push	de
+	ld	hl, 2
+	push	hl
+	ld	l, a
+	push	hl
+	call	_mos_i2c_write
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix + 6)
+	ld	a, (hl)
+	ld	iy, (ix - 9)
+	pea	iy + 2
+	ld	hl, 2
+	push	hl
+	ld	l, a
+	push	hl
+	call	_mos_i2c_write
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix + 6)
+	ld	a, (hl)
+	ld	iy, (ix - 9)
+	pea	iy + 4
+	ld	hl, 2
+	push	hl
+	ld	l, a
+	push	hl
+	call	_mos_i2c_write
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_delay
+	pop	hl
+	ld	a, 1
+	ld	sp, ix
+	pop	ix
+	ret
+	section	.text,"ax",@progbits
+
+	section	.text,"ax",@progbits
+	public	_read_sensor
+_read_sensor:
+	ld	hl, -10
+	call	__frameset
+	ld	hl, (ix + 6)
+	xor	a, a
+	ld	(ix - 10), a
+	lea	de, ix - 6
+	ld	a, (hl)
+	ld	(ix - 9), de
+	push	de
+	ld	hl, 1
+	push	hl
+	ld	l, a
+	push	hl
+	call	_mos_i2c_read
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	a, (ix - 6)
+	or	a, a
+	sbc	hl, hl
+	ld	l, a
+	push	hl
+	ld	hl, _.str.5
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	a, (ix - 6)
+	bit	3, a
+	jp	z, BB2_2
+	ld	a, 1
+	ld	(ix - 10), a
+	ld	hl, 1
+	push	hl
+	call	_delay
+	pop	hl
+	ld	hl, (ix + 6)
+	ld	a, (hl)
+	ld	hl, (ix - 9)
+	push	hl
+	ld	hl, 6
+	push	hl
+	ld	l, a
+	push	hl
+	call	_mos_i2c_read
+	pop	hl
+	pop	hl
+	pop	hl
+	or	a, a
+	sbc	hl, hl
+	ld	l, (ix - 2)
+	ld	(ix - 9), hl
+	push	hl
+	ld	hl, _.str.6
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 9)
+	ld	l, (ix - 1)
+	ld	(ix - 9), hl
+	push	hl
+	ld	hl, _.str.7
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 9)
+	ld	l, (ix - 5)
+	ld	(ix - 9), hl
+	push	hl
+	ld	hl, _.str.8
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 9)
+	ld	l, (ix - 4)
+	ld	(ix - 9), hl
+	push	hl
+	ld	hl, _.str.9
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 9)
+	ld	l, (ix - 3)
+	ld	(ix - 9), hl
+	push	hl
+	ld	hl, _.str.10
+	push	hl
+	call	_printf
+	pop	hl
+	pop	hl
+	ld	a, (ix - 2)
+	ld	iy, (ix + 6)
+	ld	(iy + 1), a
+	ld	a, (ix - 1)
+	ld	b, 4
+	call	__bshru
+	ld	l, a
+	ld	h, 0
+	ld.sis	bc, 625
+	call	__smulu
+	ld	iy, (ix + 6)
+	ld	(iy + 2), l
+	ld	(iy + 3), h
+	ld	bc, (ix - 9)
+	ld	c, (ix - 5)
+	ld	e, 0
+	ld	l, 10
+	ld	a, e
+	call	__lshl
+	push	bc
+	pop	iy
+	ld	d, a
+	ld	bc, 0
+	ld	c, (ix - 4)
+	ld	l, 2
+	ld	a, e
+	call	__lshl
+	push	bc
+	pop	hl
+	ld	e, a
+	lea	bc, iy
+	ld	a, d
+	call	__ladd
+	ld	d, (ix - 3)
+	ld	a, d
+	ld	b, 6
+	call	__bshru
+	ld	bc, 0
+	ld	c, a
+	xor	a, a
+	call	__ladd
+	ld	iy, (ix + 6)
+	ld	(iy + 4), hl
+	ld	(iy + 7), e
+	ld	a, d
+	ld	b, 4
+	call	__bshru
+	and	a, 3
+	ld	l, 25
+	ld	h, a
+	mlt	hl
+	ld	h, 0
+	ld	(iy + 8), l
+	ld	(iy + 9), h
+BB2_2:
+	ld	a, (ix - 10)
+	ld	sp, ix
+	pop	ix
+	ret
+	section	.text,"ax",@progbits
+
+	section	.rodata,"a",@progbits
+	private	_.str
+_.str:
+	db	"MPL3115A2 sensor test", 10, 13, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.1
+_.str.1:
+	db	"Sensor init done", 10, 13, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.2
+_.str.2:
+	db	"Cycle: %hu", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.3
+_.str.3:
+	db	"Temperature: %i.%4.4iC", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.4
+_.str.4:
+	db	"Pressure: %lu.%uPa", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.5
+_.str.5:
+	db	"Sensor status reg value: %x", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.6
+_.str.6:
+	db	"Sensor OUT_T_MSB reg value: %x", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.7
+_.str.7:
+	db	"Sensor OUT_T_LSB reg value: %x", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.8
+_.str.8:
+	db	"Sensor OUT_P_MSB reg value: %x", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.9
+_.str.9:
+	db	"Sensor OUT_P_CSB reg value: %x", 13, 10, 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.10
+_.str.10:
+	db	"Sensor OUT_P_LSB reg value: %x", 13, 10, 0
+
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	extern	__lshl
+	extern	__frameset
+	extern	_printf
+	extern	_mos_i2c_write
+	extern	_mos_i2c_open
+	extern	__Unwind_SjLj_Register
+	extern	_mos_i2c_read
+	extern	__smulu
+	extern	__Unwind_SjLj_Unregister
+	extern	_delay
+	extern	__bshru
+	extern	__ladd
